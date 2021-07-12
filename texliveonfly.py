@@ -41,7 +41,15 @@ py3 = sys.version_info[0]  >= 3
 
 #functions to support python3's usage of bytes in some places where 2 uses strings
 tobytesifpy3 = lambda s = None  : s.encode() if py3 and s != None else s
-frombytesifpy3 = lambda b = None : b.decode("UTF-8") if py3 and b != None else b
+
+
+def frombytesifpy3(b=None):
+    if py3 and b is not None:
+        s = b.decode("UTF-8", errors='replace')
+        return s
+    else:
+        return b
+
 
 #version of Popen.communicate that always takes and returns strings
 #regardless of py version
